@@ -207,11 +207,11 @@ TMS/
 │   ├── sidebar.php                 # Admin sidebar menu
 │   └── footer.php                  # Admin footer
 │
-└── user/common/                    # User shared files
-    ├── activity_logger.php         # Activity logging functions
-    ├── user_header.php             # User header/navigation
-    ├── user_sidebar.php            # User sidebar menu
-    └── user_footer.php             # User footer
+├── user/common/                    # User shared files
+│   ├── activity_logger.php         # Activity logging functions
+│   ├── user_header.php             # User header/navigation
+│   ├── user_sidebar.php            # User sidebar menu
+│   └── user_footer.php             # User footer
 │
 ├── assets/                         # Static assets
 │   ├── css/
@@ -367,7 +367,7 @@ Stores system activity logs.
 
 | Column | Type | Description |
 |--------|------|-------------|
-| activity_id | INT (Primary Key, Auto Increment) | Unique activity identifier |
+| log_id | INT (Primary Key, Auto Increment) | Unique activity identifier |
 | activity_type | VARCHAR | Type of activity (e.g., 'login', 'task_created') |
 | description | TEXT | Activity description |
 | user_id | INT (Foreign Key, Nullable) | References users.users_id |
