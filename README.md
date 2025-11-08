@@ -199,8 +199,6 @@ TMS/
 │   ├── connection.php              # Database connection
 │   └── config.php                  # Configuration constants
 │
-├── common/                         # Shared files (if any)
-│
 ├── admin/common/                   # Admin shared files
 │   ├── activity_logger.php         # Activity logging functions
 │   ├── header.php                  # Admin header/navigation
