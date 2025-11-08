@@ -1,0 +1,554 @@
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #141e30, #243b55);
+    color: white;
+    position: relative;
+}
+
+/* Main content areas - expand to push footer down */
+.manage_employee,
+.manage_task,
+.leave_application,
+.manage_department,
+.content-wrapper {
+    flex: 1 0 auto;
+    min-height: 0;
+}
+
+body#login_background {
+    background: linear-gradient(to right, #43cea2, #185a9d);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+footer {
+    margin-top: auto !important;
+    margin-left: 230px;
+    width: calc(100% - 230px);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.sticky-footer {
+    margin-top: auto !important;
+    flex-shrink: 0;
+}
+
+/* Footer for pages without sidebar (login, etc.) */
+footer.full-width {
+    margin-left: 0;
+    width: 100%;
+}
+
+/* ============================================
+   LOGIN PAGE
+   ============================================ */
+
+#login_page {
+    background: linear-gradient(to right, #43cea2, #185a9d);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border: 1px solid;
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+    color: white;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* ============================================
+   FORM ELEMENTS
+   ============================================ */
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+}
+
+.form-control::placeholder {
+    color: rgb(199, 195, 195);
+}
+
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    box-shadow: none;
+}
+
+.form-control,
+.form-select {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.form-control::placeholder,
+.form-select option {
+    color: #ddd;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-color: #1228f3;
+    box-shadow: none;
+}
+
+select[name="emp_id"] option,
+select[name="department"] option,
+select[name="role"] option,
+select[name="designation"] option,
+select[name="status"] option {
+    color: #000 !important;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.btn-primary {
+    background-color: #6a11cb;
+    border: none;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+}
+
+.btn-hover:hover {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+}
+
+.btn-block {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.header {
+    position: fixed;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    height: 60px;
+    z-index: 1030;
+    margin-left: 230px;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+/* ============================================
+   DROPDOWN MENU
+   ============================================ */
+
+.admin-dropdown-container,
+.user-dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.admin-profile-btn,
+.user-profile-btn {
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.admin-dropdown-menu,
+.user-dropdown-menu {
+    display: none !important;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: transparent;
+    min-width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-top: 5px;
+    z-index: 1000;
+}
+
+.admin-dropdown-menu.show,
+.user-dropdown-menu.show {
+    display: block !important;
+    animation: fadeIn 0.2s;
+}
+
+.admin-menu-item,
+.user-menu-item {
+    display: block !important;
+    padding: 12px 15px;
+    color: #333 !important;
+    text-decoration: none;
+    background: white !important;
+}
+
+.admin-menu-item:hover,
+.user-menu-item:hover {
+    background-color: #f8f9fa !important;
+}
+
+.user-menu-item:first-child {
+    border-bottom: 1px solid #eee;
+    border-radius: 5px 5px 0 0;
+}
+
+.user-menu-item:last-child {
+    border-radius: 0 0 5px 5px;
+}
+
+.admin-menu-item {
+    border-radius: 5px;
+}
+
+.admin-menu-item.text-danger,
+.user-menu-item.text-danger {
+    color: #dc3545 !important;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 15px;
+    width: 230px;
+    font-size: 18px;
+    background: linear-gradient(to right, #2575fc, #6a11cb);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#sidebar h3 {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#sidebar a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    transition: 0.3s;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#sidebar a:hover {
+    background-color: #50907b;
+    color: black;
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+
+.card {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 17px;
+    color: white;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin-bottom: 1rem;
+}
+
+/* ============================================
+   ADMIN DASHBOARD
+   ============================================ */
+
+
+   
+
+
+
+/* ============================================
+   TASK PRIORITIES
+   ============================================ */
+
+.priority-high {
+    background-color: #e74c3c !important;
+}
+
+.priority-medium {
+    background-color: #f39c12 !important;
+}
+
+.priority-low {
+    background-color: #27ae60 !important;
+}
+
+/* ============================================
+   ADMIN - TASK MANAGEMENT
+   ============================================ */
+
+.manage_task {
+    width: 80vw;
+    margin-left: 263px;
+    margin-top: 83px;
+    padding: 20px;
+    padding-bottom: 120px; /* Extra padding to prevent footer overlap */
+}
+
+.leave_application {
+    width: 81vw;
+    margin-right: auto;
+    margin-left: 253px;
+    margin-top: 82px;
+    padding: 20px;
+    padding-bottom: 120px; /* Extra padding to prevent footer overlap */
+}
+
+.edit_task {
+    max-width: 800px;
+    margin-right: auto;
+    margin-top: 105px;
+    padding: 20px;
+}
+
+.edit_task .form-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.edit_task .btn-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+}
+
+.edit_task .btn-gradient-primary:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.delete_task {
+    max-width: 800px;
+    margin-right: auto;
+    margin-top: 105px;
+    padding: 20px;
+}
+
+.delete_task .form-header {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+}
+
+.delete_task .btn-gradient-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    border: none;
+}
+
+.delete_task .btn-gradient-danger:hover {
+    background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
+}
+
+/* ============================================
+   ADMIN - EMPLOYEE MANAGEMENT
+   ============================================ */
+
+.register_page {
+    margin-top: 80px;
+    padding: 13px;
+    max-width: 550px;
+    max-height: fit-content;
+}
+
+.manage_employee {
+    width: 80vw;
+    margin-top: 83px;
+    margin-left: 263px;
+    padding: 20px;
+    padding-bottom: 120px; /* Extra padding to prevent footer overlap */
+}
+
+.edit_employee {
+    width: 50vw;
+    margin-top: 83px;
+    margin-left: 486px;
+    padding: 20px;
+}
+
+.edit_profile_picture {
+    max-width: 500px;
+    margin-top: 100px;
+    margin-left: 600px;
+}
+
+.reset_password {
+    width: 50vw;
+    margin-top: 83px;
+    margin-left: 486px;
+    padding: 20px;
+}
+
+.employee_view {
+    background: linear-gradient(to right, #141e30, #243b55);
+    width: 59vw;
+    margin-left: 370px;
+    margin-top: 104px;
+    height: 80vh;
+}
+
+.employee-table {
+    background-color: transparent;
+}
+
+.employee-table th,
+.employee-table td {
+    background-color: transparent !important;
+    color: #fff;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.profile-pic-container {
+    position: relative;
+    display: inline-block;
+}
+
+.edit-pic-btn {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    background: #0d6efd;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.edit-pic-btn:hover {
+    background: #0b5ed7;
+}
+
+.change_password {
+    width: 30vw;
+    margin-left: 594px;
+    margin-top: 107px;
+    padding: 20px;
+}
+
+/* ============================================
+   ADMIN - DEPARTMENT MANAGEMENT
+   ============================================ */
+
+.manage_department {
+    width: 80vw;
+    margin-left: 263px;
+    margin-top: 83px;
+    padding: 20px;
+    padding-bottom: 120px; /* Extra padding to prevent footer overlap */
+}
+
+.add_department {
+    width: 50vw;
+    margin-left: 451px;
+    margin-top: 170px;
+    padding: 20px;
+    height: 100%;
+}
+
+.edit_department {
+    width: 50vw;
+    margin-left: 451px;
+    margin-top: 170px;
+    padding: 20px;
+}
+
+/* ============================================
+   POPUP
+   ============================================ */
+
+.popup {
+    background: linear-gradient(to right, #141e30, #243b55) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+}
+
+/* ============================================
+   USER DASHBOARD
+   ============================================ */
+
+#right_sidebar {
+    margin-top: 105px;
+    padding: 20px;
+    margin-left: 257px;
+}
+
+.user_view_leave_status {
+    width: 80vw;
+    margin-left: 263px;
+    margin-top: 83px;
+    padding: 20px;
+}
+
+.user_task_update {
+    width: 80vw;
+    margin-left: 263px;
+    margin-top: 83px;
+    padding: 20px;
+}
+
+.user_apply_leave {
+    width: 80vw;
+    margin-left: 263px;
+    margin-top: 83px;
+    padding: 20px;
+}
+
+.user_view_task_status {
+    width: 80vw;
+    margin-left: 263px;
+    margin-top: 83px;
+    padding: 20px;
+    background: linear-gradient(to right, #141e30, #243b55) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+}
+
+.user_view_task_status .btn-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.user_view_task_status .btn-gradient-primary:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
