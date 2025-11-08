@@ -93,20 +93,5 @@ include SIDEBAR_PATH;
   </table>
 </div>
 
-<script>
-  document.getElementById("searchInput").addEventListener("keyup", function() {
-    var value = this.value.toLowerCase();
-    var rows = document.querySelectorAll("#employee_table tbody tr");
-
-    rows.forEach(function(row) {
-      var text = row.textContent.toLowerCase();
-      if (text.includes(value)) {
-        row.style.display = "";
-      } else {
-        row.style.display = "none";
-      }
-    });
-  });
-</script>
 
 <?php include FOOTER_PATH; ?>

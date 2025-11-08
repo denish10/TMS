@@ -63,11 +63,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </form>
 </div>
 
-<script>
-function confirmUpdate() {
-    let deptName = document.getElementById("department_name").value;
-    return confirm("Are you sure you want to update this department to '" + deptName + "'?");
-}
-</script>
 
 <?php include FOOTER_PATH; ?>

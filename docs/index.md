@@ -50,6 +50,10 @@ This folder contains detailed documentation for each PHP file in the Task Manage
 - [admin/department/edit_department.php](edit_department.md) - Edit departments
 - [admin/department/delete_department.php](delete_department.md) - Delete departments
 
+### Asset Files
+- [assets/js/script.js](js.md) - JavaScript functionality
+- [assets/css/style.css](css.md) - CSS styling
+
 ## 📝 Documentation Format
 
 Each documentation file includes:

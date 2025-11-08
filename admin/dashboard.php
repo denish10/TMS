@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../dbsetting/config.php';
 
 // Check if user is logged in and is admin
 if (!isset($_SESSION['users_id']) || $_SESSION['role'] !== 'admin') {
@@ -7,7 +8,6 @@ if (!isset($_SESSION['users_id']) || $_SESSION['role'] !== 'admin') {
     exit;
 }
 
-require_once __DIR__ . '/../dbsetting/config.php';
 require_once __DIR__ . '/common/activity_logger.php';
 
 include(HEADER_PATH);
@@ -655,11 +655,5 @@ $recent_tasks_result = mysqli_query($conn, $recent_tasks_query);
 }
 </style>
 
-<script>
-// Auto-refresh dashboard every 5 minutes
-setInterval(function() {
-    location.reload();
-}, 300000);
-</script>
 
 <?php include FOOTER_PATH; ?>

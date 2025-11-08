@@ -114,18 +114,3 @@ include SIDEBAR_PATH;
 include FOOTER_PATH;
 ?>
 
-<script>
-  document.getElementById("searchInput").addEventListener("keyup", function() {
-    var value = this.value.toLowerCase();
-    var rows = document.querySelectorAll("#task_table tbody tr");
-
-    rows.forEach(function(row) {
-      var text = row.textContent.toLowerCase();
-      if (text.includes(value)) {
-        row.style.display = "";
-      } else {
-        row.style.display = "none";
-      }
-    });
-  });
-</script>

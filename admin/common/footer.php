@@ -2,9 +2,7 @@
     &copy; <?= date('Y') ?> Task Management System | Admin Panel
 </footer>
 
-
-<script src="../assects/js/script.js"></script>
-
+<script src="<?php echo BASE_URL; ?>/assets/js/script.js"></script>
 
 </body>
 </html>

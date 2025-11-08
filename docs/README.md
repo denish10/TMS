@@ -49,6 +49,11 @@ This documentation is organized by file functionality and includes:
 22. **[admin/leave/approve_leave.php](approve_leave.md)** - Approve leave applications
 23. **[admin/leave/reject_leave.php](reject_leave.md)** - Reject leave applications
 
+### Asset Files
+
+24. **[assets/js/script.js](js.md)** - JavaScript functionality and interactivity
+25. **[assets/css/style.css](css.md)** - CSS styling and design
+
 ## 🎯 Quick Navigation
 
 ### For Students Preparing for Presentation/Viva:

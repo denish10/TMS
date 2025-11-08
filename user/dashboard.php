@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../dbsetting/config.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['users_id'])) {
@@ -7,7 +8,6 @@ if (!isset($_SESSION['users_id'])) {
     exit;
 }
 
-require_once __DIR__ . '/../dbsetting/config.php';
 require_once __DIR__ . '/common/activity_logger.php';
 
 include(USER_HEADER_PATH);
@@ -501,12 +501,6 @@ $user_info = mysqli_fetch_assoc($user_info_result);
 }
 </style>
 
-<script>
-// Auto-refresh dashboard every 5 minutes
-setInterval(function() {
-    location.reload();
-}, 300000);
-</script>
 
 <?php include(USER_FOOTER_PATH); ?>
 

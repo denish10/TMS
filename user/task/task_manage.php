@@ -1,14 +1,15 @@
 <?php
 session_start();
 require_once __DIR__ . '/../../dbsetting/config.php';
-include USER_HEADER_PATH;
-include USER_SIDEBAR_PATH;
 
-
+// Check if user is logged in
 if (!isset($_SESSION['users_id'])) {
     header("Location: " . BASE_URL . "/index.php");
     exit;
 }
+
+include USER_HEADER_PATH;
+include USER_SIDEBAR_PATH;
 
 $user_id = $_SESSION['users_id'];
 ?>
@@ -93,18 +94,3 @@ $user_id = $_SESSION['users_id'];
 
 <?php include(USER_FOOTER_PATH); ?>
 
-<script>
-  document.getElementById("searchInput").addEventListener("keyup", function() {
-    var value = this.value.toLowerCase();
-    var rows = document.querySelectorAll("#task_table tbody tr");
-
-    rows.forEach(function(row) {
-      var text = row.textContent.toLowerCase();
-      if (text.includes(value)) {
-        row.style.display = "";
-      } else {
-        row.style.display = "none";
-      }
-    });
-  });
-</script>

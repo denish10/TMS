@@ -68,16 +68,6 @@ include SIDEBAR_PATH;
 </div>
 
 
-<script>
-  document.getElementById("searchInput").addEventListener("keyup", function() {
-    var value = this.value.toLowerCase();
-    var rows = document.querySelectorAll("#department_table tbody tr");
-
-    rows.forEach(function(row) {
-      row.style.display = row.textContent.toLowerCase().includes(value) ? "" : "none";
-    });
-  });
-</script>
 
 <?php
 include FOOTER_PATH;
