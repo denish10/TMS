@@ -18,18 +18,18 @@ This folder contains detailed documentation for each PHP file in the Task Manage
 - [admin/task/create_task.php](create_task.md) - Create and assign tasks
 - [admin/task/manage_task.php](manage_task.md) - View and manage all tasks
 - [admin/task/edit_task.php](edit_task.md) - Edit task details
-- [admin/task/view_task.php](view_task.md) - View task details
-- [admin/task/delete_task.php](delete_task.md) - Delete tasks
-- [user/task/task_manage.php](task_manage.md) - Employee task list
-- [user/task/task_view.php](task_view.md) - Employee view task details
-- [user/task/task_status.php](task_status.md) - Update task status
+- [admin/task/view_task.php](manage_task.md) - View task details (see manage_task.md)
+- [admin/task/delete_task.php](manage_task.md) - Delete tasks (see manage_task.md)
+- [user/task/task_manage.php](manage_task.md) - Employee task list (see manage_task.md)
+- [user/task/task_view.php](manage_task.md) - Employee view task details (see manage_task.md)
+- [user/task/task_status.php](edit_task.md) - Update task status (see edit_task.md)
 
 ### Leave Management Files
 - [user/leave/apply_leave.php](apply_leave.md) - Submit leave applications
-- [user/leave/view_leave_status.php](view_leave_status.md) - View leave status
-- [admin/leave/leave_application.php](leave_application.md) - Admin leave management
-- [admin/leave/approve_leave.php](approve_leave.md) - Approve leave
-- [admin/leave/reject_leave.php](reject_leave.md) - Reject leave
+- [user/leave/view_leave_status.php](leave_status.md) - View leave status
+- [admin/leave/leave_application.php](leave_status.md) - Admin leave management (see leave_status.md)
+- [admin/leave/approve_leave.php](leave_status.md) - Approve leave (see leave_status.md)
+- [admin/leave/reject_leave.php](leave_status.md) - Reject leave (see leave_status.md)
 
 ### Employee Management Files
 - [admin/employee/add_employee.php](add_employee.md) - Add new employees

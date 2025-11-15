@@ -271,5 +271,4 @@ if (mysqli_num_rows($checkDept) > 0) {
 - Add input validation (email format, mobile format)
 - Use prepared statements for better security
 - Add password update functionality
-- Add activity logging
 

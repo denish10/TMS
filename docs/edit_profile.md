@@ -319,5 +319,4 @@ $_SESSION['name'] = $fullname;
 - Password update is handled separately (not in this file)
 - Profile picture update is handled separately
 - Department and role cannot be changed by user (admin only)
-- All changes are logged in activity logs (if implemented)
 

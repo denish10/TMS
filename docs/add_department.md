@@ -185,5 +185,4 @@ if (mysqli_query($conn, $sql)) {
 - Add department name length validation
 - Add special character validation
 - Use prepared statements for better security
-- Add activity logging
 

@@ -19,7 +19,7 @@ function initTableSearch() {
         return;
     }
     
-    // Skip if this is activity logs page (it has its own search)
+    // Skip if filter form exists (it has its own search)
     if (document.getElementById('filterForm')) {
         return;
     }

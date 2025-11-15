@@ -50,11 +50,9 @@ The primary objective of this system is to:
   - Department statistics
   - Task statistics (total, completed, pending, in progress, on hold, cancelled)
   - Leave statistics (total, approved, pending, rejected)
-  - Activity logs statistics
   - Top performing employees ranking
   - Recent tasks list
   - Recent pending leaves
-  - Recent activity logs
   - Task status distribution charts
   - Leave status distribution charts
   - Quick access links
@@ -108,18 +106,6 @@ The primary objective of this system is to:
 - Delete departments
 - Organize employees by departments
 
-### Activity Logging
-- Automatic logging of all system activities
-- Track user actions (login, logout, task creation, leave approval, etc.)
-- Display recent activities in dashboard
-- View all activity logs with filtering options (admin)
-- Filter by activity type, user, date range
-- Search functionality across all log fields
-- Export activity logs to CSV
-- Activity icons and color coding
-- Time ago formatting for timestamps
-- Link activities to related records
-
 ### Reporting & Analytics
 - **Performance Reports:** Employee performance metrics based on task completion
 - **Leave Reports:** Employee leave statistics and approval rates
@@ -129,7 +115,7 @@ The primary objective of this system is to:
 - **Color-coded Metrics:** Visual representation of performance levels
 
 ### Additional Features
-- Responsive design (works on desktop and mobile)
+- 
 - Real-time search functionality
 - Form validation and error handling
 - Success/error message alerts
@@ -211,8 +197,6 @@ TMS/
 │   │   └── style.css               # Custom styles
 │   └── js/                         # JavaScript files
 │
-├── docs/                           # Documentation files
-│   └── [Individual file documentation in .md format]
 │
 └── index.php                       # Login page (entry point)
 ```
@@ -250,7 +234,7 @@ Detailed documentation for each PHP file is available in the `/docs/` folder. Ea
 - [dbsetting/config.php](docs/config.md) - System configuration
 - [admin/dashboard.php](docs/dashboard.md) - Admin dashboard
 - [admin/report.php](docs/report.md) - Performance reports
-- [user/dashboard.php](docs/user_dashboard.md) - User dashboard
+- [user/dashboard.php](docs/dashboard.md) - User dashboard
 - [user/edit_profile.php](docs/edit_profile.md) - Edit profile
 - [admin/task/create_task.php](docs/create_task.md) - Task creation
 - [user/leave/apply_leave.php](docs/apply_leave.md) - Leave application
@@ -373,7 +357,6 @@ System validates credentials
 If valid:
     - Create session variables (users_id, name, email, role)
     - Update last_login timestamp
-    - Log login activity
     - Redirect based on role:
         * Admin → admin/dashboard.php
         * Staff → user/dashboard.php
@@ -405,7 +388,6 @@ System:
     - Creates task in task_manage table
     - Assigns task to selected employees in task_assign table
     - Sets initial status as 'Not Started'
-    - Logs activity
     ↓
 Redirect to Manage Tasks page
 ```
@@ -477,7 +459,6 @@ Click "Approve" or "Reject"
     ↓
 System:
     - Updates status in leave_apply table
-    - Logs activity
     ↓
 Redirect back to leave applications list
 ```
@@ -507,7 +488,6 @@ System:
     - Hashes password
     - Creates user in users table
     - Links to department in employee_department table
-    - Logs activity
     ↓
 Redirect to employee list
 ```
@@ -552,7 +532,6 @@ Redirect to employee list
 - Real-time task status updates
 - Live chat between admin and employees
 - Real-time notifications (using WebSockets)
-- Activity feed with live updates
 
 ### 5. **Enhanced Task Features**
 - Task comments and discussions
@@ -609,15 +588,13 @@ The **Task Management System (TMS)** is a comprehensive web-based solution desig
 
 3. **Role-Based Access Control:** The implementation of separate interfaces for administrators and staff ensures that users only access relevant features, maintaining security and usability.
 
-4. **Comprehensive Dashboard Analytics:** Both admin and user dashboards provide real-time insights into tasks, leaves, and system activities, enabling data-driven decision-making.
+4. **Comprehensive Dashboard Analytics:** Both admin and user dashboards provide real-time insights into tasks and leaves, enabling data-driven decision-making.
 
-5. **Activity Logging:** The built-in activity logging system maintains a complete audit trail of all system activities, essential for security, compliance, and troubleshooting.
-
-6. **User-Friendly Interface:** The responsive design and intuitive navigation make the system accessible to users of all technical levels.
+5. **User-Friendly Interface:** The responsive design and intuitive navigation make the system accessible to users of all technical levels.
 
 ### System Benefits:
 
-- **For Organizations:** Improved task tracking, better resource allocation, streamlined leave management, and comprehensive activity monitoring.
+- **For Organizations:** Improved task tracking, better resource allocation, and streamlined leave management.
 - **For Administrators:** Centralized control, real-time statistics, efficient employee and department management, and quick decision-making tools.
 - **For Employees:** Easy task management, transparent leave process, personal dashboard insights, and user-friendly interface.
 

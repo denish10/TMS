@@ -236,7 +236,6 @@ function confirmUpdate() {
 - Add department name length validation
 - Add special character validation
 - Use prepared statements for better security
-- Add activity logging
 - Add validation for department name format
 
 ### Department Update Impact:

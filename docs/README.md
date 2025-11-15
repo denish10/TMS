@@ -19,40 +19,37 @@ This documentation is organized by file functionality and includes:
 1. **[index.php](index.md)** - Main login page for user authentication
 2. **[dbsetting/connection.php](connection.md)** - Database connection configuration
 3. **[dbsetting/config.php](config.md)** - System configuration and constants
-4. **[admin/common/activity_logger.php](activity_logger.md)** - Activity logging functionality (Admin)
-5. **[user/common/activity_logger.php](activity_logger.md)** - Activity logging functionality (User)
 
 ### Dashboard Files
 
-6. **[admin/dashboard.php](dashboard.md)** - Admin dashboard with statistics
-7. **[user/dashboard.php](dashboard.md)** - User dashboard with personal statistics
-8. **[admin/activity_logs.php](activity_logs.md)** - View and filter system activity logs
-9. **[admin/report.php](report.md)** - Performance and leave reports
-10. **[user/edit_profile.php](edit_profile.md)** - Edit own profile (User)
+4. **[admin/dashboard.php](dashboard.md)** - Admin dashboard with statistics
+5. **[user/dashboard.php](dashboard.md)** - User dashboard with personal statistics
+6. **[admin/report.php](report.md)** - Performance and leave reports
+7. **[user/edit_profile.php](edit_profile.md)** - Edit own profile (User)
 
 ### Task Management Files
 
-11. **[admin/task/create_task.php](create_task.md)** - Create and assign tasks to employees
-12. **[admin/task/manage_task.php](manage_task.md)** - View and manage all tasks (Admin)
-13. **[admin/task/edit_task.php](edit_task.md)** - Edit existing tasks
-14. **[admin/task/view_task.php](view_task.md)** - View task details
-15. **[admin/task/delete_task.php](delete_task.md)** - Delete tasks
-16. **[user/task/task_manage.php](task_manage.md)** - User task management page
-17. **[user/task/task_view.php](task_view.md)** - User task viewing page
-18. **[user/task/task_status.php](task_status.md)** - Update task status (User)
+8. **[admin/task/create_task.php](create_task.md)** - Create and assign tasks to employees
+9. **[admin/task/manage_task.php](manage_task.md)** - View and manage all tasks (Admin)
+10. **[admin/task/edit_task.php](edit_task.md)** - Edit existing tasks
+11. **[admin/task/view_task.php](manage_task.md)** - View task details (see manage_task.md)
+12. **[admin/task/delete_task.php](manage_task.md)** - Delete tasks (see manage_task.md)
+13. **[user/task/task_manage.php](manage_task.md)** - User task management page (see manage_task.md)
+14. **[user/task/task_view.php](manage_task.md)** - User task viewing page (see manage_task.md)
+15. **[user/task/task_status.php](edit_task.md)** - Update task status (see edit_task.md)
 
 ### Leave Management Files
 
-19. **[user/leave/apply_leave.php](apply_leave.md)** - Submit leave applications
-20. **[user/leave/view_leave_status.php](view_leave_status.md)** - View leave application status
-21. **[admin/leave/leave_application.php](leave_application.md)** - Admin leave management page
-22. **[admin/leave/approve_leave.php](approve_leave.md)** - Approve leave applications
-23. **[admin/leave/reject_leave.php](reject_leave.md)** - Reject leave applications
+16. **[user/leave/apply_leave.php](apply_leave.md)** - Submit leave applications
+17. **[user/leave/view_leave_status.php](leave_status.md)** - View leave application status
+18. **[admin/leave/leave_application.php](leave_status.md)** - Admin leave management page (see leave_status.md)
+19. **[admin/leave/approve_leave.php](leave_status.md)** - Approve leave applications (see leave_status.md)
+20. **[admin/leave/reject_leave.php](leave_status.md)** - Reject leave applications (see leave_status.md)
 
 ### Asset Files
 
-24. **[assets/js/script.js](js.md)** - JavaScript functionality and interactivity
-25. **[assets/css/style.css](css.md)** - CSS styling and design
+21. **[assets/js/script.js](js.md)** - JavaScript functionality and interactivity
+22. **[assets/css/style.css](css.md)** - CSS styling and design
 
 ## 🎯 Quick Navigation
 
@@ -61,10 +58,9 @@ This documentation is organized by file functionality and includes:
 1. **Start Here:** Read [index.php](index.md) to understand the login system
 2. **Core Files:** Review [dbsetting/connection.php](connection.md) and [dbsetting/config.php](config.md) for system setup
 3. **Main Features:** Study [admin/dashboard.php](dashboard.md) for overview functionality
-4. **Activity Logs:** Review [admin/activity_logs.php](activity_logs.md) for activity tracking
-5. **Reports:** Explore [admin/report.php](report.md) for reporting features
+4. **Reports:** Explore [admin/report.php](report.md) for reporting features
 6. **Task Management:** Explore [create_task.md](create_task.md) and [manage_task.md](manage_task.md)
-7. **Leave Management:** Review [apply_leave.md](apply_leave.md) and [view_leave_status.md](view_leave_status.md)
+7. **Leave Management:** Review [apply_leave.md](apply_leave.md) and [leave_status.md](leave_status.md)
 8. **User Profile:** Check [user/edit_profile.php](edit_profile.md) for profile management
 
 ### For Understanding Specific Features:
@@ -75,8 +71,6 @@ This documentation is organized by file functionality and includes:
 - **Task Creation:** [admin/task/create_task.php](create_task.md)
 - **Task Management:** [admin/task/manage_task.php](manage_task.md)
 - **Leave Applications:** [user/leave/apply_leave.php](apply_leave.md)
-- **Activity Logging:** [admin/common/activity_logger.php](activity_logger.md)
-- **Activity Logs View:** [admin/activity_logs.php](activity_logs.md)
 - **Reports:** [admin/report.php](report.md)
 - **Profile Management:** [user/edit_profile.php](edit_profile.md)
 
@@ -105,11 +99,6 @@ This documentation is organized by file functionality and includes:
 - Form validation
 - AJAX functionality
 
-### Activity Logging
-- System activity tracking
-- User action logging
-- Audit trail functionality
-
 ## 💡 Presentation Tips
 
 ### When Presenting the Project:
@@ -127,7 +116,6 @@ This documentation is organized by file functionality and includes:
 - **Database Design:** Table relationships and JOIN operations
 - **Security:** Input validation, SQL injection prevention, XSS prevention
 - **User Roles:** Admin vs Staff functionality
-- **Activity Logging:** System monitoring and auditing
 
 ## 📖 How to Use This Documentation
 
@@ -155,9 +143,6 @@ A: See [index.php](index.md) - Users login with email/username and password, ses
 **Q: How are tasks assigned to employees?**
 A: See [create_task.php](create_task.md) - Admin selects department, chooses employees, enters task details, and task is assigned to selected employees.
 
-**Q: How is activity logging implemented?**
-A: See [activity_logger.php](activity_logger.md) - All important activities are logged with user ID, activity type, description, and timestamp.
-
 **Q: How is security handled?**
 A: See security sections in each file - Input validation, SQL injection prevention, XSS prevention, and role-based access control.
 
@@ -175,11 +160,10 @@ A: See security sections in each file - Input validation, SQL injection preventi
 2. Start with [index.php](index.md) for login system
 3. Review [dbsetting/config.php](config.md) and [dbsetting/connection.php](connection.md) for system setup
 4. Review [admin/dashboard.php](dashboard.md) for main features
-5. Explore [admin/activity_logs.php](activity_logs.md) for activity tracking
-6. Review [admin/report.php](report.md) for reporting features
-7. Explore task and leave management files
-8. Check [user/edit_profile.php](edit_profile.md) for profile management
-9. Study security and validation implementations
+5. Review [admin/report.php](report.md) for reporting features
+6. Explore task and leave management files
+7. Check [user/edit_profile.php](edit_profile.md) for profile management
+8. Study security and validation implementations
 
 ## 📞 Support
 

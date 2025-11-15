@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This file allows administrators to create new tasks and assign them to employees. It provides a form where admins can select a department, choose employees from that department, enter task details (title, description, priority, dates), and assign the task to one or multiple employees. The file handles task creation, employee assignment, and activity logging.
+This file allows administrators to create new tasks and assign them to employees. It provides a form where admins can select a department, choose employees from that department, enter task details (title, description, priority, dates), and assign the task to one or multiple employees. The file handles task creation and employee assignment.
 
 ## Key Features
 
@@ -12,7 +12,6 @@ This file allows administrators to create new tasks and assign them to employees
 - Multiple employee assignment
 - Priority selection (High, Medium, Low)
 - Date range selection (start date and end date)
-- Activity logging for task creation
 - Form validation and error handling
 - Automatic redirect after successful creation
 
@@ -34,7 +33,7 @@ if (!isset($_SESSION['users_id']) || $_SESSION['role'] !== 'admin') {
 
 **Explanation:**
 - Starts PHP session for user authentication
-- Includes configuration and activity logger files
+- Includes configuration file
 - Validates user is logged in AND has admin role
 - Redirects to login if not authorized
 - Ensures only administrators can create tasks
@@ -163,21 +162,10 @@ foreach ($users_ids as $user_id) {
 - Loops through selected user IDs
 - For each employee, creates assignment in `task_assign` table
 - Sets initial status as 'Not Started'
-- Retrieves employee names for activity logging
-- Stores names in array for log message
-
-### 7. Activity Logging
-
-```php
-// Log task creation
-$users_list = !empty($assigned_users) ? implode(', ', $assigned_users) : 'employees';
-```
-
-**Explanation:**
 - Task is successfully created and assigned
 - All selected employees receive the task assignment
 
-### 8. Department Selection Dropdown
+### 7. Department Selection Dropdown
 
 ```php
 <select name="department_id" id="department_id" class="form-select">
@@ -350,7 +338,6 @@ document.getElementById('department_id').addEventListener('change', function() {
 - **Mention:** Multiple employee assignment capability
 - **Show:** How tasks are created and assigned
 - **Demonstrate:** AJAX functionality for employee selection
-- **Discuss:** Activity logging for task creation
 
 ### Workflow:
 1. Admin selects department
@@ -359,8 +346,7 @@ document.getElementById('department_id').addEventListener('change', function() {
 4. Admin enters task details (title, description, priority, dates)
 5. Task is created in database
 6. Task is assigned to selected employees
-7. Activity is logged
-8. Admin is redirected to manage tasks page
+7. Admin is redirected to manage tasks page
 
 ### AJAX Functionality:
 - Loads employees without page refresh

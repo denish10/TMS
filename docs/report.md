@@ -34,7 +34,7 @@ if (!isset($_SESSION['users_id']) || $_SESSION['role'] !== 'admin') {
 
 **Explanation:**
 - Starts session for user authentication
-- Includes database configuration and activity logger
+- Includes database configuration
 - Verifies user is logged in and has admin role
 - Redirects unauthorized users to login page
 - Ensures only administrators can view reports
@@ -305,11 +305,6 @@ elseif ($rate < 75) $rate_color = 'warning';
   - Pending leaves
   - Rejected leaves
   - Approval rate percentage
-
-### Activity Logging:
-- Logs when admin views reports
-- Tracks report access for audit purposes
-- Records activity with timestamp
 
 ### Print Optimization:
 - Hides interactive elements (buttons, forms)
