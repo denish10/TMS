@@ -129,5 +129,4 @@ Once connected, the system uses these tables:
 - `leave_apply` - Stores leave applications
 - `department` - Stores department information
 - `employee_department` - Links employees to departments
-- `activity_logs` - Stores system activity logs
 

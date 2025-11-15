@@ -56,31 +56,16 @@ if (!isset($_SESSION['users_id']) || $_SESSION['role'] !== 'admin') {
 
 ```php
 require_once __DIR__ . '/../dbsetting/config.php';
-require_once __DIR__ . '/common/activity_logger.php';
 include(HEADER_PATH);
 include(SIDEBAR_PATH);
 ```
 
 **Explanation:**
 - `dbsetting/config.php` - Loads configuration constants (BASE_URL, paths) and database connection
-- `common/activity_logger.php` - Provides functions for logging activities (admin/common/ for admin, user/common/ for user)
 - `HEADER_PATH` - Constant defined in config.php, points to admin/common/header.php or user/common/user_header.php
 - `SIDEBAR_PATH` - Constant defined in config.php, points to admin/common/sidebar.php or user/common/user_sidebar.php
 
-### 3. Activity Logging
-
-```php
-// Log dashboard access
-logActivity('dashboard_viewed', 'Admin viewed the dashboard');
-```
-
-**Explanation:**
-- Records when dashboard is accessed
-- Useful for tracking user activity
-- Stores in `activity_logs` table
-- Helps monitor system usage
-
-### 4. Employee Statistics Query (Admin Only)
+### 3. Employee Statistics Query (Admin Only)
 
 ```php
 $total_employees_query = "SELECT COUNT(*) as total FROM users WHERE role = 'staff'";

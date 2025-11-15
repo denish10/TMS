@@ -8,13 +8,10 @@ This folder contains detailed documentation for each PHP file in the Task Manage
 - [index.php](index.md) - Login and authentication page
 - [dbsetting/connection.php](connection.md) - Database connection setup
 - [dbsetting/config.php](config.md) - System configuration and constants
-- [admin/common/activity_logger.php](activity_logger.md) - Activity logging functions (Admin)
-- [user/common/activity_logger.php](activity_logger.md) - Activity logging functions (User)
 
 ### Dashboard Files
-- [admin/dashboard.php](admin_dashboard.md) - Admin dashboard with statistics
-- [user/dashboard.php](user_dashboard.md) - Employee dashboard
-- [admin/activity_logs.php](activity_logs.md) - View and filter activity logs
+- [admin/dashboard.php](dashboard.md) - Admin dashboard with statistics
+- [user/dashboard.php](dashboard.md) - Employee dashboard
 - [admin/report.php](report.md) - Performance and leave reports
 
 ### Task Management Files
@@ -68,10 +65,9 @@ Each documentation file includes:
 
 1. Start with [index.php](index.md) to understand authentication
 2. Review [dbsetting/connection.php](connection.md) and [dbsetting/config.php](config.md) for system setup
-3. Check [admin/dashboard.php](admin_dashboard.md) for admin features
-4. Explore [admin/activity_logs.php](activity_logs.md) for activity logging
-5. Review [admin/report.php](report.md) for reporting features
-6. Explore task and leave management files for core functionality
+3. Check [admin/dashboard.php](dashboard.md) for admin features
+4. Review [admin/report.php](report.md) for reporting features
+5. Explore task and leave management files for core functionality
 
 ## 📖 For Presentation/Viva
 

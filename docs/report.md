@@ -24,7 +24,6 @@ This file generates comprehensive performance and leave reports for administrato
 session_start();
 
 require_once __DIR__ . '/../dbsetting/config.php';
-require_once __DIR__ . '/common/activity_logger.php';
 
 // Check if user is logged in and is admin
 if (!isset($_SESSION['users_id']) || $_SESSION['role'] !== 'admin') {

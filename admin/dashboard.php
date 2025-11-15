@@ -8,13 +8,8 @@ if (!isset($_SESSION['users_id']) || $_SESSION['role'] !== 'admin') {
     exit;
 }
 
-require_once __DIR__ . '/common/activity_logger.php';
-
 include(HEADER_PATH);
 include(SIDEBAR_PATH);
-
-// Log dashboard access
-logActivity('dashboard_viewed', 'Admin viewed the dashboard');
 
 // ========== EMPLOYEE MODULE STATISTICS ==========
 $total_employees_query = "SELECT COUNT(*) as total FROM users WHERE role = 'staff'";
@@ -74,18 +69,7 @@ $rejected_leaves_query = "SELECT COUNT(*) as total FROM leave_apply WHERE status
 $rejected_leaves_result = mysqli_query($conn, $rejected_leaves_query);
 $rejected_leaves = mysqli_fetch_assoc($rejected_leaves_result)['total'] ?? 0;
 
-// ========== ACTIVITY LOGS STATISTICS ==========
-$total_activities_query = "SELECT COUNT(*) as total FROM activity_logs";
-$total_activities_result = mysqli_query($conn, $total_activities_query);
-$total_activities = mysqli_fetch_assoc($total_activities_result)['total'] ?? 0;
-
-$today_activities_query = "SELECT COUNT(*) as total FROM activity_logs WHERE DATE(created_at) = CURDATE()";
-$today_activities_result = mysqli_query($conn, $today_activities_query);
-$today_activities = mysqli_fetch_assoc($today_activities_result)['total'] ?? 0;
-
 // ========== RECENT DATA ==========
-// Recent activities
-$recent_activities = getRecentActivities(8);
 
 // Top performing employees
 $top_employees_query = "
@@ -289,14 +273,6 @@ $recent_tasks_result = mysqli_query($conn, $recent_tasks_query);
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
-                    <div class="card text-center border-0 shadow-sm">
-                        <div class="card-body">
-                            <h3 class="text-primary mb-0"><?php echo $today_activities; ?></h3>
-                            <small class="text-white opacity-75">Today's Activities</small>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Main Content Row -->
@@ -452,37 +428,6 @@ $recent_tasks_result = mysqli_query($conn, $recent_tasks_query);
                         </div>
                     </div>
 
-                    <!-- Recent Activity -->
-                    <div class="card border-0 shadow-sm mb-4">
-                        <div class="card-header bg-white border-bottom">
-                            <h5 class="mb-0 text-dark"><i class="fas fa-history me-2"></i> Recent Activity</h5>
-                        </div>
-                        <div class="card-body bg-white" style="max-height: 350px; overflow-y: auto;">
-                            <?php if (!empty($recent_activities)): ?>
-                                <?php foreach ($recent_activities as $activity): 
-                                    $icon_data = getActivityIcon($activity['activity_type']);
-                                ?>
-                                    <div class="d-flex align-items-start mb-3">
-                                        <div class="activity-icon <?php echo $icon_data['color']; ?> rounded-circle me-3 flex-shrink-0">
-                                            <i class="fas <?php echo $icon_data['icon']; ?> text-white"></i>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <p class="mb-1 small text-dark">
-                                                <strong class="text-dark"><?php echo htmlspecialchars($activity['user_name'] ?? 'System'); ?></strong> 
-                                                <span class="text-dark"><?php echo htmlspecialchars($activity['description']); ?></span>
-                                            </p>
-                                            <small class="text-dark opacity-75"><?php echo timeAgo($activity['created_at']); ?></small>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <div class="text-center text-dark py-3">
-                                    <p class="text-dark">No recent activities found.</p>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-
                     <!-- Quick Links -->
                     <div class="card border-0 shadow-sm">
                         <div class="card-header bg-white border-bottom">
@@ -501,9 +446,6 @@ $recent_tasks_result = mysqli_query($conn, $recent_tasks_query);
                                 </a>
                                 <a href="<?php echo BASE_URL; ?>/admin/report.php" class="btn btn-outline-info btn-sm">
                                     <i class="fas fa-chart-line me-2"></i> View Reports
-                                </a>
-                                <a href="<?php echo BASE_URL; ?>/admin/activity_logs.php" class="btn btn-outline-secondary btn-sm">
-                                    <i class="fas fa-history me-2"></i> Activity Logs
                                 </a>
                             </div>
                         </div>
@@ -610,16 +552,6 @@ $recent_tasks_result = mysqli_query($conn, $recent_tasks_query);
 </div>
 
 <style>
-/* Activity Icon */
-.activity-icon {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-}
-
 /* Card Hover Effects */
 .card {
     transition: transform 0.2s ease, box-shadow 0.2s ease;

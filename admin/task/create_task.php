@@ -2,7 +2,6 @@
 session_start();
 
 require_once __DIR__ . '/../../dbsetting/config.php';
-require_once __DIR__ . '/../common/activity_logger.php';
 
 // Check if user is logged in and is admin
 if (!isset($_SESSION['users_id']) || $_SESSION['role'] !== 'admin') {
@@ -84,10 +83,6 @@ if (isset($_POST['task_assign'])) {
                     }
                 }
             }
-
-            // Log task creation
-            $users_list = !empty($assigned_users) ? implode(', ', $assigned_users) : 'employees';
-            logActivity('task_created', "Created task: '$task_title' and assigned to $users_list", null, 'task_manage', $task_id);
 
             $message = "✅ Task assigned successfully! Redirecting...";
             $alertType = "success";

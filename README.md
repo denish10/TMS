@@ -147,10 +147,8 @@ TMS/
 │
 ├── admin/                          # Admin-only functionality
 │   ├── dashboard.php              # Admin dashboard with statistics
-│   ├── activity_logs.php          # View all activity logs
 │   ├── report.php                  # Generate reports
 │   ├── logout.php                  # Admin logout
-│   ├── setup_activity_logs.php     # Setup activity logging
 │   │
 │   ├── department/                 # Department management
 │   │   ├── add_department.php      # Add new department
@@ -164,8 +162,7 @@ TMS/
 │   │   ├── edit_employee.php       # Edit employee details
 │   │   ├── delete_employee.php     # Delete employee
 │   │   ├── view_employee.php       # View employee profile
-│   │   ├── reset_password.php      # Reset employee password
-│   │   └── edit_profile_picture.php # Edit profile picture
+│   │   └── reset_password.php      # Reset employee password
 │   │
 │   ├── leave/                      # Leave management
 │   │   ├── leave_application.php   # View all leave applications
@@ -200,13 +197,11 @@ TMS/
 │   └── config.php                  # Configuration constants
 │
 ├── admin/common/                   # Admin shared files
-│   ├── activity_logger.php         # Activity logging functions
 │   ├── header.php                  # Admin header/navigation
 │   ├── sidebar.php                 # Admin sidebar menu
 │   └── footer.php                  # Admin footer
 │
 ├── user/common/                    # User shared files
-│   ├── activity_logger.php         # Activity logging functions
 │   ├── user_header.php             # User header/navigation
 │   ├── user_sidebar.php            # User sidebar menu
 │   └── user_footer.php             # User footer
@@ -214,11 +209,7 @@ TMS/
 ├── assets/                         # Static assets
 │   ├── css/
 │   │   └── style.css               # Custom styles
-│   ├── js/                         # JavaScript files
-│   └── uploads/                    # Uploaded files (profile pictures)
-│
-├── database/                       # Database related files
-│   └── README_ACTIVITY_LOGS.md    # Activity logs documentation
+│   └── js/                         # JavaScript files
 │
 ├── docs/                           # Documentation files
 │   └── [Individual file documentation in .md format]
@@ -230,14 +221,11 @@ TMS/
 
 - **index.php:** Main entry point, handles user authentication
 - **admin/dashboard.php:** Admin dashboard with comprehensive statistics
-- **admin/activity_logs.php:** View and filter system activity logs
 - **admin/report.php:** Generate performance and leave reports
 - **user/dashboard.php:** Employee dashboard with personal statistics
 - **user/edit_profile.php:** Employees can edit their own profile
 - **dbsetting/connection.php:** Establishes MySQL database connection
 - **dbsetting/config.php:** Defines system constants and configuration
-- **admin/common/activity_logger.php:** Provides activity logging functions for admin
-- **user/common/activity_logger.php:** Provides activity logging functions for users
 - **admin/task/create_task.php:** Create and assign tasks to employees
 - **admin/task/manage_task.php:** View and manage all tasks
 - **user/leave/apply_leave.php:** Submit leave applications
@@ -260,9 +248,7 @@ Detailed documentation for each PHP file is available in the `/docs/` folder. Ea
 - [index.php](docs/index.md) - Login and authentication
 - [dbsetting/connection.php](docs/connection.md) - Database connection
 - [dbsetting/config.php](docs/config.md) - System configuration
-- [admin/common/activity_logger.php](docs/activity_logger.md) - Activity logging
-- [admin/dashboard.php](docs/admin_dashboard.md) - Admin dashboard
-- [admin/activity_logs.php](docs/activity_logs.md) - View activity logs
+- [admin/dashboard.php](docs/dashboard.md) - Admin dashboard
 - [admin/report.php](docs/report.md) - Performance reports
 - [user/dashboard.php](docs/user_dashboard.md) - User dashboard
 - [user/edit_profile.php](docs/edit_profile.md) - Edit profile
@@ -360,20 +346,6 @@ Stores leave applications.
 | created_date | DATETIME | Application creation date |
 | status | ENUM('Pending', 'Approved', 'Rejected') | Leave status |
 
-#### 7. `activity_logs` Table
-Stores system activity logs.
-
-| Column | Type | Description |
-|--------|------|-------------|
-| log_id | INT (Primary Key, Auto Increment) | Unique activity identifier |
-| activity_type | VARCHAR | Type of activity (e.g., 'login', 'task_created') |
-| description | TEXT | Activity description |
-| user_id | INT (Foreign Key, Nullable) | References users.users_id |
-| user_name | VARCHAR | User name for display |
-| related_table | VARCHAR (Nullable) | Related table name |
-| related_id | INT (Nullable) | Related record ID |
-| created_at | DATETIME | Activity timestamp |
-
 ### Database Relationships
 
 ```
@@ -382,7 +354,6 @@ users (1) ────< (many) leave_apply
 users (1) ────< (many) employee_department
 department (1) ────< (many) employee_department
 task_manage (1) ────< (many) task_assign
-users (1) ────< (many) activity_logs
 ```
 
 ---

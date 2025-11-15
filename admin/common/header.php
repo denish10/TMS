@@ -7,19 +7,18 @@ if (session_status() === PHP_SESSION_NONE) {
 
 $userId = $_SESSION['users_id'] ?? 0;
 $loggedInName = $_SESSION['name'] ?? "";
-$profilePhoto = "default.png";
 
-// Always fetch photo when logged in so it doesn't stay at default
-if ($userId > 0) {
-    $query = "SELECT fullname, profile_photo FROM users WHERE users_id = $userId LIMIT 1";
+// Fetch user name if not in session
+if ($userId > 0 && $loggedInName === "") {
+    $query = "SELECT fullname FROM users WHERE users_id = $userId LIMIT 1";
     $result = mysqli_query($conn, $query);
     if ($row = mysqli_fetch_assoc($result)) {
-        if ($loggedInName === "") {
-            $loggedInName = $row['fullname'] ?: '';
-        }
-        $profilePhoto = !empty($row['profile_photo']) ? $row['profile_photo'] : 'default.png';
+        $loggedInName = $row['fullname'] ?: '';
     }
 }
+
+// Get first letter of name for avatar
+$firstLetter = !empty($loggedInName) ? strtoupper(substr(trim($loggedInName), 0, 1)) : '?';
 
 
 
@@ -50,9 +49,9 @@ if ($userId > 0) {
     <button class="admin-profile-btn d-flex align-items-center border-0 bg-transparent text-white"
       type="button" id="adminProfileBtn" onclick="toggleAdminMenu(event)" style="cursor: pointer; padding: 5px 10px;">
 
-      <img src="<?php echo BASE_URL; ?>/assets/uploads/<?php echo htmlspecialchars($profilePhoto); ?>" 
-           alt="Profile" width="40" height="40"
-           class="rounded-circle me-2 border">
+      <div class="admin-avatar me-2" style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #9b59b6, #8e44ad); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 18px; border: 2px solid rgba(255,255,255,0.3);">
+        <?php echo htmlspecialchars($firstLetter); ?>
+      </div>
      
       <span><?php echo htmlspecialchars($loggedInName); ?></span>
       <i class="fas fa-chevron-down ms-2"></i>

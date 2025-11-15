@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once("dbsetting/config.php");
-require_once("admin/common/activity_logger.php");
 
 $message = "";
 
@@ -34,9 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
                 $user_id = (int) $user['users_id'];
                 $update_login = "UPDATE users SET last_login = NOW() WHERE users_id = $user_id";
                 mysqli_query($conn, $update_login);
-
-                // Log login activity
-                logActivity('login', 'User logged in to the system', $user['users_id']);
 
                 // Redirect based on role
                 if ($user['role'] === 'admin') {

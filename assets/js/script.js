@@ -73,164 +73,7 @@ function initTableSearch() {
 }
 
 // ============================================================================
-// 2. ACTIVITY LOGS SEARCH AND FILTER
-// ============================================================================
-// This function handles advanced search for activity logs page
-
-function initActivityLogs() {
-    var filterForm = document.getElementById('filterForm');
-    
-    // Only run on activity logs page
-    if (!filterForm) {
-        return;
-    }
-    
-    var searchInput = document.getElementById('searchInput');
-    var typeFilter = document.getElementById('typeFilter');
-    var userFilter = document.getElementById('userFilter');
-    var dateFrom = document.getElementById('dateFrom');
-    
-    var searchTimeout;
-    
-    // Search function - waits 500ms after user stops typing
-    function doSearch() {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(function() {
-            if (searchInput.value.length >= 2 || searchInput.value.length === 0) {
-                filterForm.submit();
-            }
-        }, 500);
-    }
-    
-    // When user types in search box
-    if (searchInput) {
-        searchInput.addEventListener('input', doSearch);
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                clearTimeout(searchTimeout);
-                filterForm.submit();
-            }
-        });
-    }
-    
-    // When user changes activity type filter
-    if (typeFilter) {
-        typeFilter.addEventListener('change', function() {
-            filterForm.submit();
-        });
-    }
-    
-    // When user changes user filter
-    if (userFilter) {
-        userFilter.addEventListener('change', function() {
-            filterForm.submit();
-        });
-    }
-    
-    // When user changes date filter
-    if (dateFrom) {
-        dateFrom.addEventListener('change', function() {
-            filterForm.submit();
-        });
-    }
-    
-    // Highlight search terms in the table
-    highlightSearchTerms();
-    
-    // Show loading when form is submitted
-    filterForm.addEventListener('submit', function() {
-        var submitBtn = filterForm.querySelector('button[type="submit"]');
-        if (submitBtn) {
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Loading...';
-            submitBtn.disabled = true;
-        }
-    });
-}
-
-// Function to highlight search terms in activity logs table
-function highlightSearchTerms() {
-    var tableBody = document.getElementById('tableBody');
-    if (!tableBody) {
-        return;
-    }
-    
-    // Get search term from URL
-    var urlParams = new URLSearchParams(window.location.search);
-    var searchTerm = urlParams.get('search');
-    
-    if (!searchTerm || searchTerm.length < 2) {
-        return;
-    }
-    
-    var rows = tableBody.getElementsByTagName('tr');
-    
-    // Loop through each row
-    for (var i = 0; i < rows.length; i++) {
-        var cells = rows[i].getElementsByTagName('td');
-        
-        // Loop through each cell in the row
-        for (var j = 0; j < cells.length; j++) {
-            var cell = cells[j];
-            var cellText = cell.textContent;
-            
-            // Highlight matching text
-            if (cellText.toLowerCase().includes(searchTerm.toLowerCase())) {
-                var regex = new RegExp('(' + searchTerm + ')', 'gi');
-                cell.innerHTML = cellText.replace(regex, '<span class="highlight">$1</span>');
-            }
-        }
-    }
-}
-
-// Function to export activity logs table to CSV
-// This is called when user clicks Export button
-window.exportTable = function() {
-    var table = document.getElementById('activityTable');
-    if (!table) {
-        return;
-    }
-    
-    var csv = [];
-    var rows = table.querySelectorAll('tr');
-    
-    // Get all rows from table
-    for (var i = 0; i < rows.length; i++) {
-        var row = [];
-        var cols = rows[i].querySelectorAll('td, th');
-        
-        // Get all columns from row
-        for (var j = 0; j < cols.length; j++) {
-            var data = cols[j].innerText;
-            // Remove newlines and escape quotes
-            data = data.replace(/(\r\n|\n|\r)/gm, '').replace(/"/g, '""');
-            row.push('"' + data + '"');
-        }
-        
-        csv.push(row.join(','));
-    }
-    
-    // Create CSV content
-    var csvContent = csv.join('\n');
-    
-    // Create download link
-    var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    var link = document.createElement('a');
-    var url = URL.createObjectURL(blob);
-    
-    // Set download attributes
-    link.setAttribute('href', url);
-    link.setAttribute('download', 'activity_logs_' + new Date().toISOString().split('T')[0] + '.csv');
-    link.style.visibility = 'hidden';
-    
-    // Trigger download
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-};
-
-// ============================================================================
-// 3. TASK CREATION - EMPLOYEE DROPDOWN
+// 2. TASK CREATION - EMPLOYEE DROPDOWN
 // ============================================================================
 // This function handles employee selection when creating tasks
 
@@ -346,7 +189,7 @@ function initTaskCreation() {
 }
 
 // ============================================================================
-// 4. DASHBOARD AUTO-REFRESH
+// 3. DASHBOARD AUTO-REFRESH
 // ============================================================================
 // This function refreshes the dashboard every 5 minutes
 
@@ -363,7 +206,7 @@ function initDashboardRefresh() {
 }
 
 // ============================================================================
-// 5. DEPARTMENT EDIT CONFIRMATION
+// 4. DEPARTMENT EDIT CONFIRMATION
 // ============================================================================
 // This function shows confirmation dialog when editing department
 
@@ -381,7 +224,7 @@ window.confirmUpdate = function() {
 };
 
 // ============================================================================
-// 6. FORM LOADING STATES
+// 5. FORM LOADING STATES
 // ============================================================================
 // This function shows loading state when forms are submitted
 
@@ -413,9 +256,6 @@ function initFormLoading() {
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize table search
     initTableSearch();
-    
-    // Initialize activity logs (if on that page)
-    initActivityLogs();
     
     // Initialize task creation (if on that page)
     initTaskCreation();

@@ -24,7 +24,6 @@ This file allows administrators to create new tasks and assign them to employees
 session_start();
 
 require_once __DIR__ . '/../../dbsetting/config.php';
-require_once __DIR__ . '/../common/activity_logger.php';
 
 // Check if user is logged in and is admin
 if (!isset($_SESSION['users_id']) || $_SESSION['role'] !== 'admin') {
@@ -172,14 +171,11 @@ foreach ($users_ids as $user_id) {
 ```php
 // Log task creation
 $users_list = !empty($assigned_users) ? implode(', ', $assigned_users) : 'employees';
-logActivity('task_created', "Created task: '$task_title' and assigned to $users_list", null, 'task_manage', $task_id);
 ```
 
 **Explanation:**
-- Logs task creation event
-- Creates descriptive message with task title and assigned employees
-- Stores in activity_logs table
-- Links to task_manage table with task_id
+- Task is successfully created and assigned
+- All selected employees receive the task assignment
 
 ### 8. Department Selection Dropdown
 
@@ -303,7 +299,6 @@ document.getElementById('department_id').addEventListener('change', function() {
    - Automatically redirects to `manage_task.php` after 2 seconds
    - Task is created in `task_manage` table
    - Task is assigned to selected employees in `task_assign` table
-   - Activity is logged in `activity_logs` table
 
 3. **After Failed Creation:**
    - Shows error messages for validation failures
@@ -379,5 +374,4 @@ document.getElementById('department_id').addEventListener('change', function() {
 - `users` - Employee information
 - `task_manage` - Task details
 - `task_assign` - Task assignments
-- `activity_logs` - Activity tracking
 

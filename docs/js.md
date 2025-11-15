@@ -2,13 +2,11 @@
 
 ## Purpose
 
-This file contains all JavaScript functionality for the Task Management System. It is a consolidated JavaScript file that handles table searching, activity logs filtering, task creation, dashboard auto-refresh, and form submissions. The code is written in simple, readable JavaScript suitable for college projects and presentations.
+This file contains all JavaScript functionality for the Task Management System. It is a consolidated JavaScript file that handles table searching, task creation, dashboard auto-refresh, and form submissions. The code is written in simple, readable JavaScript suitable for college projects and presentations.
 
 ## Key Features
 
 - Universal table search functionality
-- Activity logs advanced search and filtering
-- CSV export functionality
 - Task creation with employee dropdown
 - Dashboard auto-refresh
 - Department edit confirmation
@@ -54,62 +52,7 @@ function initTableSearch() {
 - User Task Management page
 - User Leave Status page
 
-### 2. Activity Logs Search and Filter
-
-```javascript
-function initActivityLogs() {
-    var filterForm = document.getElementById('filterForm');
-    // Real-time search with debounce
-    // Filter by type, user, date
-    // Highlight search terms
-    // Export to CSV
-}
-```
-
-**Explanation:**
-- Handles advanced search for activity logs
-- Uses debounce (waits 500ms after typing stops)
-- Auto-submits form when filters change
-- Highlights matching search terms in table
-- Exports table data to CSV file
-
-**Features:**
-- **Debounced Search:** Waits 500ms after user stops typing before searching
-- **Real-time Filtering:** Automatically submits form when filters change
-- **Search Highlighting:** Highlights matching text in table cells
-- **CSV Export:** Downloads table data as CSV file
-
-**Used in:**
-- Activity Logs page (admin/activity_logs.php)
-
-### 3. CSV Export Function
-
-```javascript
-window.exportTable = function() {
-    var table = document.getElementById('activityTable');
-    // Convert table to CSV format
-    // Create download link
-    // Trigger download
-}
-```
-
-**Explanation:**
-- Gets the activity logs table
-- Converts table data to CSV format
-- Creates a downloadable file
-- Triggers browser download automatically
-
-**How it works:**
-1. Gets all rows and columns from table
-2. Converts each cell to CSV format
-3. Joins all rows with newlines
-4. Creates a Blob (binary data) with CSV content
-5. Creates a download link and clicks it automatically
-
-**Used in:**
-- Activity Logs page (Export button)
-
-### 4. Task Creation - Employee Dropdown
+### 2. Task Creation - Employee Dropdown
 
 ```javascript
 function initTaskCreation() {
@@ -142,7 +85,7 @@ function initTaskCreation() {
 **Used in:**
 - Create Task page (admin/task/create_task.php)
 
-### 5. Dashboard Auto-Refresh
+### 3. Dashboard Auto-Refresh
 
 ```javascript
 function initDashboardRefresh() {
@@ -170,7 +113,7 @@ function initDashboardRefresh() {
 - Admin Dashboard (admin/dashboard.php)
 - User Dashboard (user/dashboard.php)
 
-### 6. Department Edit Confirmation
+### 4. Department Edit Confirmation
 
 ```javascript
 window.confirmUpdate = function() {
@@ -196,7 +139,7 @@ window.confirmUpdate = function() {
 **Used in:**
 - Edit Department page (admin/department/edit_department.php)
 
-### 7. Form Loading States
+### 5. Form Loading States
 
 ```javascript
 function initFormLoading() {
@@ -236,22 +179,16 @@ function initFormLoading() {
    - Users can filter table rows by typing
    - Rows show/hide based on search text
 
-2. **Activity Logs:**
-   - Advanced search with debounce
-   - Real-time filtering
-   - CSV export functionality
-   - Search term highlighting
-
-3. **Task Creation:**
+2. **Task Creation:**
    - Department dropdown loads employees
    - Employee selection updates dropdown text
    - "Select All" functionality works
 
-4. **Dashboard:**
+3. **Dashboard:**
    - Auto-refreshes every 5 minutes
    - Statistics stay up-to-date
 
-5. **Forms:**
+4. **Forms:**
    - Show loading states on submit
    - Prevent double submissions
 
@@ -288,10 +225,6 @@ function initFormLoading() {
    - `replace()` - Replace text in string
    - Regular expressions for pattern matching
 
-6. **File Operations:**
-   - `Blob` - Create binary data
-   - `URL.createObjectURL()` - Create download URL
-   - `click()` - Trigger download
 
 ### Code Organization:
 
@@ -335,20 +268,7 @@ function initFormLoading() {
 - Adds search functionality
 - Filters rows as user types
 
-### Example 2: Activity Logs Export
-
-**HTML:**
-```html
-<button onclick="exportTable()">Export</button>
-<table id="activityTable">...</table>
-```
-
-**JavaScript:**
-- Converts table to CSV
-- Creates download file
-- Triggers download automatically
-
-### Example 3: Task Creation
+### Example 2: Task Creation
 
 **HTML:**
 ```html
@@ -404,8 +324,8 @@ A: Debounce waits for user to stop typing (500ms) before searching. This prevent
 **Q: How does AJAX work?**
 A: JavaScript sends HTTP request to server, server returns data, JavaScript updates page without refreshing. Used to load employees when department is selected.
 
-**Q: How does CSV export work?**
-A: JavaScript reads table data, converts to CSV format, creates downloadable file, triggers browser download automatically.
+**Q: How does employee dropdown work in task creation?**
+A: When a department is selected, JavaScript sends an AJAX request to load employees from that department, then updates the employee list with checkboxes for selection.
 
 ## Security Notes
 

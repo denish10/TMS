@@ -41,12 +41,6 @@
         </li>
         
         <li class="nav-item mb-2">
-            <a href="<?php echo BASE_URL; ?>/admin/activity_logs.php" class="nav-link text-white">
-                <i class="fas fa-history me-2"></i> Activity Logs
-            </a>
-        </li>
-        
-        <li class="nav-item mb-2">
             <a href="<?php echo BASE_URL; ?>/admin/report.php" class="nav-link text-white">
                 <i class="fas fa-chart-line  me-2"></i> Report
             </a>

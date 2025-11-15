@@ -77,26 +77,23 @@ if ($result && mysqli_num_rows($result) > 0) {
 - LEFT JOIN ensures employees without departments are still shown
 - Validates employee exists, shows error if not found
 
-### 4. Profile Picture Display
+### 4. First Letter Avatar Display
 
 ```php
-<div class="profile-pic-container">
-    <img src="../../assets/uploads/<?php echo $employee['profile_photo'] ?: 'default.png'; ?>" 
-         class="img-thumbnail rounded-circle shadow-sm"
-         style="width: 150px; height: 150px; object-fit: cover;" alt="Profile Photo">
-    <!-- Edit Photo Button -->
-    <a href="edit_profile_picture.php?id=<?php echo $employee['users_id']; ?>" class="edit-pic-btn">
-      ✎
-    </a>
+<?php 
+$firstLetter = !empty($employee['fullname']) ? strtoupper(substr(trim($employee['fullname']), 0, 1)) : '?';
+?>
+<div class="employee-avatar">
+    <?php echo htmlspecialchars($firstLetter); ?>
 </div>
 ```
 
 **Explanation:**
-- Displays employee profile picture
-- Uses default image if no profile photo exists
-- Circular image with shadow styling
-- Edit button overlay for quick access
-- Links to profile picture edit page
+- Displays first letter of employee's name in a circular avatar
+- Uses purple gradient background with white letter
+- Automatically generated from employee's fullname
+- No image upload required
+- Clean and modern design
 
 ### 5. Employee Information Table
 
@@ -286,7 +283,6 @@ if ($result && mysqli_num_rows($result) > 0) {
 - Professional table layout
 
 ### File Structure:
-- Profile pictures stored in `assets/uploads/` folder
-- Default image: `default.png`
-- Employee-specific images: `[filename].jpg/png`
+- First letter avatars are automatically generated from employee names
+- No image uploads or storage required
 

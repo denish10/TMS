@@ -59,29 +59,21 @@ if (isset($_GET['id'])) {
     height: 80vh;
 }
 
-/* Profile Edit Icon */
-.profile-pic-container {
-  position: relative;
-  display: inline-block;
-}
-.edit-pic-btn {
-  position: absolute;
-  bottom: 0;
-  right: 10px;
-  background: #0d6efd;
-  color: #fff;
-  border: none;
+/* Employee Avatar */
+.employee-avatar {
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  font-size: 16px;
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-}
-.edit-pic-btn:hover {
-  background: #0b5ed7;
+  color: white;
+  font-weight: bold;
+  font-size: 64px;
+  border: 3px solid rgba(255,255,255,0.3);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin: 0 auto;
 }
 </style>
 
@@ -95,14 +87,11 @@ if (isset($_GET['id'])) {
       <div class="row mb-4">
         <!-- Profile Section -->
         <div class="col-md-4 text-center">
-          <div class="profile-pic-container">
-            <img src="../../assets/uploads/<?php echo $employee['profile_photo'] ?: 'default.png'; ?>" 
-                 class="img-thumbnail rounded-circle shadow-sm"
-                 style="width: 150px; height: 150px; object-fit: cover;" alt="Profile Photo">
-            <!-- Edit Photo Button -->
-            <a href="edit_profile_picture.php?id=<?php echo $employee['users_id']; ?>" class="edit-pic-btn">
-              ✎
-            </a>
+          <?php 
+          $firstLetter = !empty($employee['fullname']) ? strtoupper(substr(trim($employee['fullname']), 0, 1)) : '?';
+          ?>
+          <div class="employee-avatar">
+            <?php echo htmlspecialchars($firstLetter); ?>
           </div>
           <h5 class="mt-3"><?php echo $employee['fullname']; ?></h5>
           <span class="badge bg-secondary"><?php echo ucfirst($employee['role']); ?></span>

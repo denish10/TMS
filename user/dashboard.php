@@ -8,8 +8,6 @@ if (!isset($_SESSION['users_id'])) {
     exit;
 }
 
-require_once __DIR__ . '/common/activity_logger.php';
-
 include(USER_HEADER_PATH);
 include(USER_SIDEBAR_PATH);
 

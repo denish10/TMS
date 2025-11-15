@@ -2,7 +2,6 @@
 session_start();
 
 require_once __DIR__ . '/../dbsetting/config.php';
-require_once __DIR__ . '/common/activity_logger.php';
 
 // Check if user is logged in and is admin
 if (!isset($_SESSION['users_id']) || $_SESSION['role'] !== 'admin') {
@@ -170,8 +169,6 @@ if (!$employee_leave_result) {
     $employee_leave_result = false;
 }
 
-// Log report view
-logActivity('report_viewed', 'Admin viewed performance and leave report');
 ?>
 
 <div class="manage_task" style="width: 80vw; margin-left: 263px; margin-top: 83px; padding: 20px;">
