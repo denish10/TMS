@@ -12,7 +12,7 @@ if (!isset($_SESSION['users_id']) || $_SESSION['role'] !== 'admin') {
 include HEADER_PATH;
 include SIDEBAR_PATH;
 
-// Get filter parameters
+
 $filter_employee = isset($_GET['employee']) ? intval($_GET['employee']) : 0;
 $filter_month = isset($_GET['month']) ? mysqli_real_escape_string($conn, $_GET['month']) : date('Y-m');
 $filter_year = isset($_GET['year']) ? intval($_GET['year']) : date('Y');
