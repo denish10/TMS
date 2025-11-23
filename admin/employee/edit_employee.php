@@ -107,8 +107,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="text" name="mobile" class="form-control" value="<?php echo $data['mobile']; ?>" required>
         </div>
 
-        <div class="row">
-          <div class="col-md-6 mb-3">
+       
+          <div class=" mb-3">
             <label>Department</label>
             <select name="department" class="form-control" required>
               <option value="" disabled>Select Department</option>
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               }
               ?>
             </select>
-          </div>
+        
 
         <div class="mb-3">
             <label>Role</label>

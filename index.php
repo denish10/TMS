@@ -5,12 +5,12 @@ require_once("dbsetting/config.php");
 $message = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
-    $login_id = $_POST['login_id'];  // Email or username
+    $login_id = $_POST['login_id']; 
     $password = $_POST['password'];
 
     if (!empty($login_id) && !empty($password)) {
 
-        // Query: check both username and email
+       
         $query = "SELECT * FROM users WHERE email='$login_id' OR username='$login_id' LIMIT 1";
         $result = mysqli_query($conn, $query);
 
@@ -19,22 +19,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
         } else {
             $user = mysqli_fetch_assoc($result);
 
-            // Verify password (since DB stores hashed passwords)
+          
             if (!password_verify($password, $user['password'])) {
                 $message = "❌ Incorrect password.";
             } else {
-                // ✅ Store all needed data in session (use users_id everywhere)
-                $_SESSION['users_id'] = $user['users_id'];   // fixed key
+             
+                $_SESSION['users_id'] = $user['users_id']; 
                 $_SESSION['name']     = $user['fullname'];
                 $_SESSION['email']    = $user['email'];
                 $_SESSION['role']     = $user['role'];
 
-                // Update last_login timestamp
+              
                 $user_id = (int) $user['users_id'];
                 $update_login = "UPDATE users SET last_login = NOW() WHERE users_id = $user_id";
                 mysqli_query($conn, $update_login);
 
-                // Redirect based on role
+              
                 if ($user['role'] === 'admin') {
                     $message = "✅ Login successful. Redirecting Admin Dashboard...";
                     echo '<meta http-equiv="refresh" content="2;url=admin/dashboard.php">';
