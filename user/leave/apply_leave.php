@@ -11,6 +11,7 @@ if (!isset($_SESSION['users_id'])) {
 }
 
 $message = '';
+$alertType = 'info';
 
 if (isset($_POST['submit_leave'])) {
     $users_id   = (int) $_SESSION['users_id'];
@@ -24,10 +25,13 @@ if (isset($_POST['submit_leave'])) {
     // Simple validations
     if ($subject === '' || $user_msg === '' || $start_date === '' || $end_date === '') {
         $message = '❌ All fields are required.';
+        $alertType = 'danger';
     } elseif (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $start_date) || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $end_date)) {
         $message = '⚠️ Please select valid dates.';
+        $alertType = 'warning';
     } elseif (strtotime($start_date) > strtotime($end_date)) {
         $message = '⚠️ Start date cannot be after end date.';
+        $alertType = 'warning';
     } else {
         // Basic escaping to keep things stable
         $subjectEsc = mysqli_real_escape_string($conn, $subject);
@@ -42,22 +46,26 @@ if (isset($_POST['submit_leave'])) {
 
         if (mysqli_query($conn, $sql)) {
             $message = '✅ Leave applied successfully. Redirecting...';
+            $alertType = 'success';
             echo '<meta http-equiv="refresh" content="2;url=view_leave_status.php">';
         } else {
             $message = '❌ Error applying leave: ' . mysqli_error($conn);
+            $alertType = 'danger';
         }
     }
 }
 ?>
 
-<div class="container card " style="max-width: 600px; margin-top: 80px;  padding: 20px;">
+<div class="container card" style="max-width: 600px; margin-top: 80px; padding: 20px;">
     <center><h2>Apply Leave</h2></center>
 
     <?php if (!empty($message)): ?>
-        <div class="alert alert-info text-center mt-3"><?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?></div>
+        <div class="alert alert-<?php echo $alertType; ?> text-center mt-3">
+            <?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?>
+        </div>
     <?php endif; ?>
 
-    <form method="POST" onsubmit="return confirm('Are you sure you want to submit this leave application?');">
+    <form method="POST" id="leaveForm">
         <div class="mb-3">
             <label class="form-label fw-bold">Subject</label>
             <input type="text" class="form-control" name="subject" placeholder="Enter Subject" required>
@@ -84,5 +92,25 @@ if (isset($_POST['submit_leave'])) {
         </div>
     </form>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const leaveForm = document.getElementById('leaveForm');
+    
+    leaveForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (confirm('Are you sure you want to submit this leave application?')) {
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'submit_leave';
+            hiddenInput.value = '1';
+            this.appendChild(hiddenInput);
+            
+            this.submit();
+        }
+    });
+});
+</script>
 
 <?php include USER_FOOTER_PATH; ?>

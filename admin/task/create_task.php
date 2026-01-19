@@ -1,9 +1,7 @@
 <?php
 session_start();
-
 require_once __DIR__ . '/../../dbsetting/config.php';
 
-// Check if user is logged in and is admin
 if (!isset($_SESSION['users_id']) || $_SESSION['role'] !== 'admin') {
     header("Location: " . BASE_URL . "/index.php");
     exit;
@@ -25,11 +23,10 @@ if (isset($_POST['task_assign'])) {
     $start_date = trim($_POST['start_date'] ?? '');
     $end_date = trim($_POST['end_date'] ?? '');
 
-    // Validation
     if ($department_id <= 0) {
         $message = "⚠️ Please select a valid department.";
         $alertType = "danger";
-    } elseif (empty($users_ids)) {
+    } elseif (empty($users_ids) || count($users_ids) == 0) {
         $message = "⚠️ Please select at least one employee.";
         $alertType = "danger";
     } elseif (empty($task_title)) {
@@ -51,14 +48,12 @@ if (isset($_POST['task_assign'])) {
         $message = "⚠️ Start date cannot be after end date.";
         $alertType = "danger";
     } else {
-        // Escape data for database
         $task_title = mysqli_real_escape_string($conn, $task_title);
         $task_description = mysqli_real_escape_string($conn, $task_description);
         $start_date = mysqli_real_escape_string($conn, $start_date);
         $end_date = mysqli_real_escape_string($conn, $end_date);
         $task_priority = mysqli_real_escape_string($conn, $task_priority);
 
-        // Insert task
         $query_task = "INSERT INTO task_manage 
                        (task_title, task_description, created_date, start_date, end_date, priority) 
                        VALUES 
@@ -67,28 +62,22 @@ if (isset($_POST['task_assign'])) {
         if (mysqli_query($conn, $query_task)) {
             $task_id = mysqli_insert_id($conn);
 
-            // Assign task to employees
-            $assigned_users = [];
+            $assigned_count = 0;
             foreach ($users_ids as $user_id) {
                 $user_id = (int) $user_id;
                 if ($user_id > 0) {
                     $query_assign = "INSERT INTO task_assign (task_id, users_id, status) VALUES ($task_id, $user_id, 'Not Started')";
-                    mysqli_query($conn, $query_assign);
-                    
-                    // Get user name for logging
-                    $user_query = "SELECT fullname FROM users WHERE users_id = $user_id LIMIT 1";
-                    $user_result = mysqli_query($conn, $user_query);
-                    if ($user_row = mysqli_fetch_assoc($user_result)) {
-                        $assigned_users[] = $user_row['fullname'];
+                    if (mysqli_query($conn, $query_assign)) {
+                        $assigned_count++;
                     }
                 }
             }
 
-            $message = "✅ Task assigned successfully! Redirecting...";
+            $message = "✅ Task assigned successfully to $assigned_count employees! Redirecting...";
             $alertType = "success";
             $redirect = true;
         } else {
-            $message = "❌ Error: " . mysqli_error($conn);
+            $message = "❌ Error creating task: " . mysqli_error($conn);
             $alertType = "danger";
         }
     }
@@ -112,10 +101,10 @@ if (isset($_POST['task_assign'])) {
                         <?php endif; ?>
                     <?php endif; ?>
 
-                    <form method="POST" action="">
+                    <form method="POST" action="" id="taskForm">
                         <div class="mb-3">
                             <label class="form-label">Select Department:</label>
-                            <select name="department_id" id="department_id" class="form-select">
+                            <select name="department_id" id="department_id" class="form-select" required>
                                 <option value="">-- Select Department --</option>
                                 <?php
                                 $dept = mysqli_query($conn, "SELECT department_id, department_name FROM department");
@@ -128,27 +117,24 @@ if (isset($_POST['task_assign'])) {
 
                         <div class="mb-3">
                             <label class="form-label">Select Employees:</label>
-                            <div class="dropdown w-100" data-bs-auto-close="outside">
-                                <button class="form-select text-start d-flex justify-content-between align-items-center"
-                                        type="button" id="employeeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <span id="employeeDropdownText">Choose Employees</span>
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu w-100" aria-labelledby="employeeDropdown"
-                                    id="employee_list" style="max-height: 250px; overflow-y: auto;">
-                                    <li><p class="dropdown-item text-muted mb-0">Select a department first...</p></li>
-                                </ul>
+                            
+                            <div class="border rounded p-2" id="employee_container" style="min-height: 100px; max-height: 300px; overflow-y: auto;">
+                                <p class="text-muted mb-0">Select a department first...</p>
                             </div>
+                            
+                            <small class="text-muted mt-1 d-block" id="employee_count">No employees selected</small>
                         </div>
 
                         <div class="mb-3">
                             <label for="task_title" class="form-label">Task Title:</label>
-                            <input type="text" name="task_title" id="task_title" class="form-control" placeholder="Enter task title...">
+                            <input type="text" name="task_title" id="task_title" class="form-control" 
+                                   placeholder="Enter task title..." required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Description:</label>
-                            <textarea name="task_description" class="form-control" rows="2" placeholder="Enter task description..."></textarea>
+                            <textarea name="task_description" class="form-control" rows="2" 
+                                      placeholder="Enter task description..." required></textarea>
                         </div>
 
                         <div class="mb-3">
@@ -173,13 +159,13 @@ if (isset($_POST['task_assign'])) {
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Start Date:</label>
-                                    <input type="date" name="start_date" class="form-control">
+                                    <input type="date" name="start_date" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">End Date:</label>
-                                    <input type="date" name="end_date" class="form-control">
+                                    <input type="date" name="end_date" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -196,6 +182,171 @@ if (isset($_POST['task_assign'])) {
     </div>
 </div>
 
+<script>
+console.log('Script loaded!');
 
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded');
+    
+    const deptSelect = document.getElementById('department_id');
+    const employeeContainer = document.getElementById('employee_container');
+    const employeeCount = document.getElementById('employee_count');
+    const taskForm = document.getElementById('taskForm');
+
+    console.log('Elements found:', {
+        deptSelect: !!deptSelect,
+        employeeContainer: !!employeeContainer,
+        employeeCount: !!employeeCount,
+        taskForm: !!taskForm
+    });
+
+    if (!deptSelect) {
+        console.error('Department select not found!');
+        return;
+    }
+
+    deptSelect.addEventListener('change', function() {
+        const deptId = this.value;
+        console.log('Department changed to:', deptId);
+        
+        if (!deptId) {
+            employeeContainer.innerHTML = '<p class="text-muted mb-0">Select a department first...</p>';
+            employeeCount.textContent = 'No employees selected';
+            return;
+        }
+
+        console.log('Loading employees for department:', deptId);
+        employeeContainer.innerHTML = '<p class="text-info mb-0">Loading employees...</p>';
+        
+        fetch('get_employees.php?department_id=' + deptId)
+            .then(response => {
+                console.log('Response status:', response.status);
+                console.log('Response OK:', response.ok);
+                return response.text();
+            })
+            .then(html => {
+                console.log('Received HTML length:', html.length);
+                console.log('First 200 chars:', html.substring(0, 200));
+                
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+                
+                employeeContainer.innerHTML = '';
+                
+                const listItems = tempDiv.querySelectorAll('li');
+                console.log('Found list items:', listItems.length);
+                
+                if (listItems.length === 0) {
+                    employeeContainer.innerHTML = '<p class="text-danger mb-0">No employees found</p>';
+                    return;
+                }
+                
+                let selectAllCheckbox = null;
+                const employeeCheckboxes = [];
+                
+                listItems.forEach((li, index) => {
+                    console.log('Processing list item', index);
+                    
+                    const checkbox = li.querySelector('input[type="checkbox"]');
+                    const label = li.querySelector('label');
+                    
+                    if (checkbox && label) {
+                        if (checkbox.id === 'select_all' || checkbox.value === 'on') {
+                            const div = document.createElement('div');
+                            div.className = 'form-check mb-2 pb-2 border-bottom';
+                            
+                            const newCheckbox = checkbox.cloneNode(true);
+                            newCheckbox.removeAttribute('name');
+                            const newLabel = label.cloneNode(true);
+                            
+                            div.appendChild(newCheckbox);
+                            div.appendChild(newLabel);
+                            employeeContainer.appendChild(div);
+                            
+                            selectAllCheckbox = newCheckbox;
+                            console.log('Added Select All checkbox');
+                            return;
+                        }
+                        
+                        const div = document.createElement('div');
+                        div.className = 'form-check mb-2';
+                        
+                        const newCheckbox = checkbox.cloneNode(true);
+                        const newLabel = label.cloneNode(true);
+                        
+                        newCheckbox.className = 'form-check-input emp-check';
+                        newCheckbox.type = 'checkbox';
+                        newCheckbox.name = 'users_id[]';
+                        
+                        console.log('Created checkbox:', newCheckbox.value, 'name:', newCheckbox.name);
+                        
+                        div.appendChild(newCheckbox);
+                        div.appendChild(newLabel);
+                        employeeContainer.appendChild(div);
+                        
+                        employeeCheckboxes.push(newCheckbox);
+                        
+                        newCheckbox.addEventListener('change', updateCount);
+                    }
+                });
+                
+                if (selectAllCheckbox) {
+                    selectAllCheckbox.addEventListener('change', function() {
+                        console.log('Select All clicked:', this.checked);
+                        employeeCheckboxes.forEach(cb => cb.checked = this.checked);
+                        updateCount();
+                    });
+                }
+                
+                updateCount();
+                console.log('Employees loaded successfully');
+            })
+            .catch(error => {
+                console.error('Error loading employees:', error);
+                employeeContainer.innerHTML = '<p class="text-danger mb-0">Error: ' + error.message + '</p>';
+            });
+    });
+
+    function updateCount() {
+        const checkedBoxes = employeeContainer.querySelectorAll('.emp-check:checked');
+        const count = checkedBoxes.length;
+        
+        console.log('Checked boxes:', count);
+        
+        if (count === 0) {
+            employeeCount.textContent = 'No employees selected';
+            employeeCount.className = 'text-muted mt-1 d-block';
+        } else {
+            employeeCount.textContent = count + ' employee' + (count > 1 ? 's' : '') + ' selected';
+            employeeCount.className = 'text-success mt-1 d-block';
+        }
+    }
+
+    taskForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const employees = formData.getAll('users_id[]');
+        
+        console.log('=== FORM SUBMISSION DEBUG ===');
+        console.log('Employees selected:', employees);
+        console.log('Employee count:', employees.length);
+        
+        if (employees.length === 0) {
+            alert('⚠️ Please select at least one employee!');
+            return false;
+        }
+        
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'task_assign';
+        hiddenInput.value = '1';
+        this.appendChild(hiddenInput);
+        
+        console.log('Submitting form with', employees.length, 'employees');
+        this.submit();
+    });
+});
+</script>
 
 <?php include FOOTER_PATH; ?>
